@@ -1,10 +1,22 @@
-14 4 20
-Se mana Piedade tem casado com Quincas Borba apenas me daria uma esperanca colateral
-16 3 30
-No dia seguinte entrou a dizer de mim nomes feios e acabou alcunhando me Dom Casmurro
-5 2 2
-a de i de o
-5 2 2
-a e i o u
-10 2 2
-a e i o u a e i o u
+5
+2
+CBA
+DDD
+1
+Z
+6
+A
+B
+C
+D
+E
+F
+6
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+1
+ZZZZZZZZZZ

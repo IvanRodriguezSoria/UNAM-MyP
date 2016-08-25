@@ -43,25 +43,20 @@ class ShortStoryCompetition():
         j = 0
         w = story.split()
         for i in range(number_of_words):
-            if j == number_of_words - 1:
-                j += len(w[i])
-                if j > max_chars:
-                    j = len(w[i])
-                    lines += 1
-                elif j == max_chars:
-                    j = 0
-                    lines += 1
+            j += len(w[i])
+            if i == len(w) - 1:
+                if j == max_chars:
+                    continue
                 else:
                     lines += 1
             else:
-                j += len(w[i]) + 1
-                if j > max_chars:
-                    lines += 1
-                    j = len(w[i]) + 1
-                elif j == max_chars:
+                j += 1
+                if j == max_chars:
                     lines += 1
                     j = 0
-
+                elif j > max_chars:
+                    lines += 1
+                    j = len(w[i]) + 1
         pages = math.ceil(lines / max_lines)
         return pages
 
