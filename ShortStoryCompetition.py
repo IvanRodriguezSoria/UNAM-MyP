@@ -38,25 +38,18 @@ class ShortStoryCompetition():
         max_lines = int(numbers_list[1])
         max_chars = int(numbers_list[2])
         
-        # TODO Don't work in all cases.
         lines = 0
-        j = 0
-        w = story.split()
+        char_counter = 0
+        words = story.split()
         for i in range(number_of_words):
-            j += len(w[i])
-            if i == len(w) - 1:
-                if j == max_chars:
-                    continue
-                else:
-                    lines += 1
+            if i == 0:
+                char_counter = len(words[i])
+                lines += 1
             else:
-                j += 1
-                if j == max_chars:
+                char_counter += 1 + len(words[i])
+                if char_counter > max_chars:
+                    char_counter = len(words[i])
                     lines += 1
-                    j = 0
-                elif j > max_chars:
-                    lines += 1
-                    j = len(w[i]) + 1
         pages = math.ceil(lines / max_lines)
         return pages
 
