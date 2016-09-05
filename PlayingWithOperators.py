@@ -13,24 +13,27 @@ class PlayingWithOperators():
         cases = user_input[0][0]
         index = 1
         add = True
+        flag = True
         for i in range(cases):
             first_line = user_input[index]
             index += 1
             game_elements = user_input[index]
             index += 1
             replacements = first_line[1]
-            print(self.__start_game(game_elements, add) )
+            n = self.__start_game(game_elements, add)
+            print(self.__get_winner(n, flag) )
             for j in range(replacements):
                 numbers_to_switch = user_input[index]
                 index += 1
                 a = numbers_to_switch[0]
                 b = numbers_to_switch[1]
                 game_elements[a - 1] = b
-                print(self.__start_game(game_elements, add) )
+                n = self.__start_game(game_elements, add)
+                print(self.__get_winner(n, flag) )
+            flag = not flag
 
     def __start_game(self, game_elements, add):
-        n = self.__get_n(game_elements, add)
-        return self.__get_winner(n, True)
+        return self.__get_n(game_elements, add)
 
     def __get_n(self, game_elements, add):
         n_list = list()
@@ -53,7 +56,7 @@ class PlayingWithOperators():
         return n - m
 
     def __get_winner(self, number, flag):
-        if flag == 1:
+        if flag:
             winner = 'Rusa'
             if number % 2 == 0:
                 winner = 'Sanches'
