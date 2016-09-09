@@ -48,8 +48,7 @@ class Graph():
         node    Node to be added to the graph.
         args    Connections with this node.
         """
-        if node.value not in self.nodes_dict:
-            self.nodes_dict[node.value] = node
+        self.nodes_dict[node.value] = node
         self.add_connections(node, args)
 
     def find_node(self, value):
@@ -66,7 +65,7 @@ class Graph():
     def add_connections(self, node, *args):
         """
         Adds new connections to the given node.
-        
+
         node    The node to add connections.
         args    The connections with the node (string).
         """
@@ -83,13 +82,20 @@ class Graph():
         False otherwise.
         """
         for k, v in self.nodes_dict.items():
-            v.mark = True
-            for k1, v1 in v.connections.items():
-                if v1.mark == True:
-                    return True
-                v1.mark = True
+            if self.__aux_has_loops(v):
+                return True
             self.__erase_marks()
         return False
+
+    def __aux_has_loops(self, node):
+        print(node.value)
+        if node.mark:
+            return True
+        node.mark = True
+        for k, v in node.connections.items():
+            self.__aux_has_loops(v)
+        return False
+
 
     def __erase_marks(self):
         """
