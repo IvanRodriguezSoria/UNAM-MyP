@@ -15,38 +15,38 @@ class DuduServiceMaker():
 
         def __init__(self, n):
             self.aux_dict = dict()
-            self.node_set = set()
+            self.node_list = list()
+            self.message = 0
             for i in range(n):
-                self.node_set.add(self.Node(i + 1) )
+                self.node_list.append(self.Node(i + 1) )
 
         def has_loop(self):
-            for node in self.node_set:
-                if self.__loop_aux(node, self.aux_dict):
-                    return 'SIM'
+            for node in self.node_list:
+                self.__loop_aux(node)
+                if self.message > 0:
+                    break
                 self.aux_dict = dict()
+            if self.message > 0:
+                return 'SIM'
             return 'NAO'
 
-        def __loop_aux(self, node, aux_dict):
+        def __loop_aux(self, node):
             if node.value in self.aux_dict:
-                return True
-            if len(node.connections) < 1:
-                return False
+                self.message += 1
+                return
+            if self.message > 0:
+                return
             self.aux_dict[node.value] = -1
             for n in node.connections:
-                if self.__loop_aux(n, aux_dict):
-                    return True
-            return False
+                self.__loop_aux(n)
 
         def add_connection(self, a, b):
             node_a = self.find_node(a)
             node_b = self.find_node(b)
             node_a.connections.add(node_b)
 
-        def find_node(self, node):
-            for n in self.node_set:
-                if n.value == node:
-                    return n
-            return None
+        def find_node(self, n):
+            return self.node_list[n - 1]
     
     def challenge_in(self):
         user_in = list()
