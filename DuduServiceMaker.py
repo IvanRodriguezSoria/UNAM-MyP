@@ -5,6 +5,47 @@ class DuduServiceMaker():
     Challenge number 1610 from
     https://www.urionlinejudge.com.br/judge/es/
     """
+    class Graph():
+
+        def __init__(self, n):
+            self.node_dict = dict()
+            for i in range(1, n + 1):
+                self.node_dict[i] = set()
+
+        def add_connection(self, a, b):
+            self.node_dict[a].add(b)
+
+        def cyclic(self, g):
+            path = set()
+            visited = set()
+
+            def visit(vertex):
+                if vertex in visited:
+                    return False
+                visited.add(vertex)
+                path.add(vertex)
+                for neighbour in g.get(vertex, ()):
+                    if neighbour in path or visit(neighbour):
+                        return True
+                path.remove(vertex)
+                return False
+
+            return any(visit(v) for v in g)
+
+        # TODO Not Working for the pice of shit Uri online judge
+        # and i don't know why.
+        def DFS_has_loops(self, start):
+            visited = set()
+            stack = [start]
+            while stack:
+                vertex = stack.pop()
+                if vertex not in visited:
+                    visited.add(vertex)
+                    stack.extend(self.node_dict[vertex])
+                else:
+                    return True
+            return False
+
     def challenge_in(self):
         user_in = list()
         for line in fileinput.input():
@@ -20,31 +61,18 @@ class DuduServiceMaker():
             index += 1
             n = int(numbers[0])
             m = int(numbers[1])
-            graph = [None for x in range(n + 1)]
-            has_loops = False
+            graph = self.Graph(n)
+            d = dict()
             for j in range(m):
                 numbers = user_in[index].split()
                 index += 1
                 a = int(numbers[0])
                 b = int(numbers[1])
-                graph[a] = b
-            for k in range(1, n + 1):
-                has_loops = self.__aux(graph, k, dict() )
-                if has_loops:
-                    break
-            if has_loops:
+                graph.add_connection(a, b)
+            if graph.cyclic(graph.node_dict):
                 print('SIM')
             else:
                 print('NAO')
-
-    def __aux(self, graph, index, aux_dict):
-        index = graph[index]
-        if index == None:
-            return False
-        if index in aux_dict:
-            return True
-        aux_dict[index] = 0
-        return self.__aux(graph, index, aux_dict)
 
 if __name__ == '__main__':
     dsm = DuduServiceMaker()
