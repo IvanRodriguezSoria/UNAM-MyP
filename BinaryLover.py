@@ -3,7 +3,7 @@ import fileinput
 class BinaryLover():
     """
     Programming challenge number #TODO.
-    From: 
+    From:
     """
     def challenge_in(self):
         """
